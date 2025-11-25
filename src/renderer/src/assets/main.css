@@ -1,5 +1,9 @@
-.logo {
-  width: 200px;
+* {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+html{
+  overflow-y: scroll;
 }
 
 body {
@@ -9,24 +13,104 @@ body {
   justify-content: center;
 }
 
-.productsContainer {
+.logo {
+  width: 200px;
+  display: block;
+  margin: auto;
+}
+
+/* Login Form */
+.loginFormHeader {
+  margin-bottom: 2%;
+}
+
+.loginForm {
+  width: 55%;
   display: flex;
   flex-direction: column;
 
+  &>button[type="submit"] {
+    width: 35%;
+    margin-top: 5%;
+  }
 }
 
-.productsCard {
-  padding: 10px;
+.guestButtonHeader {
+  margin-bottom: 2%;
+}
+
+
+/* Store and Orders*/
+.productsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.productsCard,
+.orderCard {
+  width: 600px;
+  min-height: 170px;
   display: flex;
   flex-direction: row;
-  border: 2px solid black;
+  gap: 2%;
   justify-content: center;
-  max-width: 600px;
-  height: 200px;
   margin: 5px;
+  padding: 10px;
+  border: 2px solid black;
+  background-color: #7FFF00;
+}
 
-  &>* {
-    border: 1px solid black;
+.orderCard {
+  flex-direction: column;
+  background-color: #7FFF00;
+
+  & > * {
+    margin: 0
+  }
+
+  & > table {
+    border-collapse: collapse;
+  }
+
+  & > table td:first-child {
+    width: 1%;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  & > table td:last-child {
+    padding-left: 20px;
+  }
+
+  & tr:nth-child(even) {
+    background-color: #9FFF9F;
+  }
+}
+
+
+.productsPhoto {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > img {
+    width: 100%;
+    border: 1px  brown;
+    border-style: dashed;
+  }
+}
+
+.productsInfo{
+  width: 50%;
+
+  & > p {
+    margin-top: 3%;
+    margin-bottom: 0;
+  }
+
+  & > .supplier {
+    margin-top: 0;
   }
 }
 
@@ -34,26 +118,20 @@ body {
   font-weight: bold;
 }
 
-.productsPhoto {
+
+/* priceAndDiscount */
+.priceAndDiscount {
+  width: 15%;
   height: 200px;
-  min-width: 30%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  & > img {
-    max-width: 150px;
-    max-height: 150px;
+
+  & * {
+    margin: 0;
   }
 }
 
-.productsInfo{
-  min-width: 50%;
-}
-
-.productsDiscount {
-  height: 200px;
-  min-width: 15%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.discountHeader {
+  margin-top: 10%;
 }

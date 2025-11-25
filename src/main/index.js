@@ -6,8 +6,6 @@ import icon from '../../resources/icon.png?asset';
 import connectDB from './db';
 
 async function authorize(event, loginFormData) {
-  // const { enteredLogin, enteredPassword } = loginFormData;
-
   try {
     const response = await global.dbclient.query(`SELECT login, password,
         humans_roles.human_role as role,
@@ -18,7 +16,6 @@ async function authorize(event, loginFormData) {
     const user = response.rows.find((user) => user.login === loginFormData.login && user.password === loginFormData.password);
 
     if (user) {
-      // console.log(333, {login: user.login, password: user.password, role: user.role, name: user.fullname});
       return {
         login: user.login,
         password: user.password,
@@ -55,10 +52,27 @@ async function getProducts(event) {
   }
 }
 
+async function getOrders(event) {
+  try {
+    const response = await global.dbclient.query(`SELECT orders.id, order_article, order_date, delivery_date,
+        delivery_point, auth_client_full_name, code_for_client, order_status
+      FROM orders
+      JOIN orders_statuses ON orders.id_order_status = orders_statuses.id
+      JOIN delivery_points ON id_delivery_point = delivery_points.id`);
+    return response.rows;
+  } catch (e) {
+    return ('error');
+  }
+}
+
 function createWindow() {
+  // необязательно:
+  const { screen } = require('electron');
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: width/3,
+    height,
     show: false,
     icon: join(__dirname, '../../resources/icon.ico'),
     autoHideMenuBar: true,
@@ -92,6 +106,7 @@ app.whenReady().then(async () => {
 
   ipcMain.handle('authorizeUser', authorize);
   ipcMain.handle('getProducts', getProducts);
+  ipcMain.handle('getOrders', getOrders);
 
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window);
