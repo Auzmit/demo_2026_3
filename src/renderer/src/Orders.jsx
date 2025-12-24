@@ -43,7 +43,7 @@ function OrderCard({ order }) {
 }
 
 // let initialOrders = [];
-function Orders({ user, setUser }) {
+function Orders({ user }) {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
